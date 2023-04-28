@@ -82,8 +82,8 @@ class Coin0:
         self.y = y
         self.vel_x = 5
 
-    def draw_coin(self, win):
-        self.coin0 = pygame.draw.rect(win, pygame.Color("#FFFF00"), [self.x, self.y, 20, 20])
+    def draw_coin(self, win, color):
+        self.coin0 = pygame.draw.rect(win, color, [self.x, self.y, 20, 20])
 
     def move_coin(self):
         self.x -= self.vel_x
@@ -96,7 +96,10 @@ class Coin0:
 #definindo coordenadas do personagem
 char = Player(x, y)
 obstacle = Obstacle0(600, 435)
-coin = Coin0(650, 300)
+
+coin_yellow = Coin0(650, 300)
+coin_white = Coin0(500, 350)
+coin_deepblue = Coin0(400, 250)
 
 
 #Permite que a janela fique aberta:
@@ -132,15 +135,29 @@ while run:
         active = False
 
     #desenha coin na tela:
-    coin.draw_coin(screen)
+    coin_yellow.draw_coin(screen, pygame.Color("#FFFF00"))
+    coin_white.draw_coin(screen, pygame.Color("#FFFFFF"))
+    coin_deepblue.draw_coin(screen, pygame.Color("#14195a"))
+    
 
     #define movimentação da coin:
     if active:
-        coin.move_coin()
-    if char.player.colliderect(coin.coin0):
+        coin_yellow.move_coin()
+        coin_deepblue.move_coin()
+        coin_white.move_coin()
+    if char.player.colliderect(coin_yellow.coin0):
         newx = random.randint(1000, 1300)
-        coin = Coin0(newx, 300)
+        coin_yellow = Coin0(newx, 300)
         points += 100
+    if char.player.colliderect(coin_white.coin0):
+        newx = random.randint(800, 1000)
+        coin_white = Coin0(newx, 350)
+        points += 200
+    if char.player.colliderect(coin_deepblue.coin0):
+        newx = random.randint(1000, 1300)
+        coin_deepblue = Coin0(newx, 250)
+        points += 150
+
     
     score_text = font.render(f"Score: {points}", True, pygame.Color("#FFFFFF"))
     screen.blit(score_text, (480, 520))
