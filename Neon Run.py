@@ -74,7 +74,6 @@ while running == True:
     # BACKGROUND SETTING
 
     timer.tick(fps)
-    screen.fill(background)
     screen.blit(resized_backgr, (-40, 10))
 
     # WHILE STATIONARY
@@ -93,7 +92,6 @@ while running == True:
     screen.blit(score_text, (480, 520))
 
     floor = pygame.draw.rect(screen, light_pink, [0, 470, WIDTH, 10])
-
     player = pygame.draw.rect(screen, light_blue, [player_x, player_y, 35, 90])
 
     obstacle0 = pygame.draw.rect(screen, reddish, [obstacles[0], 435, 35, 35])
