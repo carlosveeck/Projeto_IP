@@ -89,8 +89,8 @@ class Coin0:
         self.y = y
         self.vel_x = 5
 
-    def draw_coin(self, win):
-        self.coin0 = pygame.draw.circle(win, pygame.Color("#FFFF00"), [self.x, self.y], 15)
+    def draw_coin(self, win, color):
+        self.coin0 = pygame.draw.circle(win, color, [self.x, self.y], 15)
 
     def move_coin(self):
         self.x -= self.vel_x
@@ -101,7 +101,10 @@ class Coin0:
 #definindo coordenadas do personagem
 char = Player(x, y)
 obstacle = Obstacle0(600, 435)
-coin = Coin0(650, 300)
+
+coin_yellow = Coin0(650, 300)
+coin_white = Coin0(600,250)
+coin_deepblue = Coin0(600,350)
 
 
 #Permite que a janela fique aberta:
@@ -138,15 +141,27 @@ while run:
         active = False
 
     #desenha coin na tela:
-    coin.draw_coin(screen)
+    coin_yellow.draw_coin(screen, pygame.Color("#FFFF00"))
+    coin_white.draw_coin(screen, pygame.Color("#FFFFFF"))
+    coin_deepblue.draw_coin(screen, pygame.Color("#14195a"))
 
     #define movimentação da coin:
     if active:
-        coin.move_coin()
-    if char.player.colliderect(coin.coin0):
+        coin_yellow.move_coin()
+        coin_deepblue.move_coin()
+        coin_white.move_coin()
+    if char.player.colliderect(coin_yellow.coin0):
         newx = random.randint(1000, 1300)
-        coin = Coin0(newx, 300)
+        coin_yellow = Coin0(newx, 300)
         points += 100
+    if char.player.colliderect(coin_white.coin0):
+        newx = random.randint(900, 1100)
+        coin_white = Coin0(newx, 250)
+        points += 150
+    if char.player.colliderect(coin_deepblue.coin0):
+        newx = random.randint(800, 1200)
+        coin_deepblue = Coin0(newx, 350)
+        points += 200
     
     score_text = font.render(f"Score: {points}", True, pygame.Color("#FFFFFF"))
     screen.blit(score_text, (480, 520))
@@ -165,37 +180,6 @@ while run:
 
         if event.type == pygame.KEYDOWN and active:
             userInput = pygame.key.get_pressed()
-            
-
-
-
-
-    #Input
-    #userInput = pygame.key.get_pressed()
-
-    #Pulo
-    #char.player_jump(userInput)
-
-    #Desenha personagem:
-    #char.draw(screen)
-
-    #Desenha obstaculos:
-    #obstacle.draw_obstacle(screen)
-
-    #movimenta obstaculos>
-    #if active:
-        #obstacle.move_obstacle()
-    #if char.player.colliderect(obstacle.obstacle0):
-        #active = False
-    
-    #reseta o game:
- 
-    
-
-
-        
-
-
 
 
 
