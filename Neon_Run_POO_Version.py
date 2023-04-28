@@ -89,10 +89,38 @@ class Coin0:
         self.y = y
         self.vel_x = 5
 
-    def draw_coin(self, win, color):
-        self.coin0 = pygame.draw.circle(win, color, [self.x, self.y], 12)
+    def draw_coin0(self, win):
+        self.coin0 = pygame.draw.circle(win, pygame.Color("#FFFF00"), [self.x, self.y], 12)
 
-    def move_coin(self):
+    def move_coin0(self):
+        self.x -= self.vel_x
+        if self.x < -20:
+            self.x = random.randint(1000, 1300)
+
+class Coin1:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.vel_x = 5
+
+    def draw_coin1(self, win):
+        self.coin1 = pygame.draw.circle(win, pygame.Color("#FFFFFF"), [self.x, self.y], 12)
+
+    def move_coin1(self):
+        self.x -= self.vel_x
+        if self.x < -20:
+            self.x = random.randint(1000, 1300)
+
+class Coin2:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.vel_x = 5
+
+    def draw_coin2(self, win):
+        self.coin2 = pygame.draw.circle(win, pygame.Color("#14195a"), [self.x, self.y], 12)
+
+    def move_coin2(self):
         self.x -= self.vel_x
         if self.x < -20:
             self.x = random.randint(1000, 1300)
@@ -103,8 +131,8 @@ char = Player(x, y)
 obstacle = Obstacle0(600, 435)
 
 coin_yellow = Coin0(650, 300)
-coin_white = Coin0(500, 350)
-coin_deepblue = Coin0(400, 250)
+coin_white = Coin1(500, 350)
+coin_deepblue = Coin2(400, 250)
 
 
 #Permite que a janela fique aberta:
@@ -141,27 +169,27 @@ while run:
         active = False
 
     #desenha coin na tela:
-    coin_yellow.draw_coin(screen, pygame.Color("#FFFF00"))
-    coin_white.draw_coin(screen, pygame.Color("#FFFFFF"))
-    coin_deepblue.draw_coin(screen, pygame.Color("#14195a"))
+    coin_yellow.draw_coin0(screen)
+    coin_white.draw_coin1(screen)
+    coin_deepblue.draw_coin2(screen)
     
 
     #define movimentação da coin:
     if active:
-        coin_yellow.move_coin()
-        coin_deepblue.move_coin()
-        coin_white.move_coin()
+        coin_yellow.move_coin0()
+        coin_deepblue.move_coin2()
+        coin_white.move_coin1()
     if char.player.colliderect(coin_yellow.coin0):
         newx = random.randint(1000, 1300)
         coin_yellow = Coin0(newx, 300)
         points += 100
-    if char.player.colliderect(coin_white.coin0):
+    if char.player.colliderect(coin_white.coin1):
         newx = random.randint(800, 1000)
-        coin_white = Coin0(newx, 350)
+        coin_white = Coin1(newx, 350)
         points += 200
-    if char.player.colliderect(coin_deepblue.coin0):
+    if char.player.colliderect(coin_deepblue.coin2):
         newx = random.randint(1000, 1300)
-        coin_deepblue = Coin0(newx, 250)
+        coin_deepblue = Coin2(newx, 250)
         points += 150
 
     
@@ -183,38 +211,7 @@ while run:
         if event.type == pygame.KEYDOWN and active:
             userInput = pygame.key.get_pressed()
             
-
-
-
-
-    #Input
-    #userInput = pygame.key.get_pressed()
-
-    #Pulo
-    #char.player_jump(userInput)
-
-    #Desenha personagem:
-    #char.draw(screen)
-
-    #Desenha obstaculos:
-    #obstacle.draw_obstacle(screen)
-
-    #movimenta obstaculos>
-    #if active:
-        #obstacle.move_obstacle()
-    #if char.player.colliderect(obstacle.obstacle0):
-        #active = False
-    
-    #reseta o game:
  
-    
-
-
-        
-
-
-
-
 
     pygame.display.update()
 pygame.quit() 
