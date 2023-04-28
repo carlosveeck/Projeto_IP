@@ -1,3 +1,4 @@
+
 import pygame
 import os
 import random
@@ -19,6 +20,9 @@ vel_y = 18
 jump = False
 
 deep_blue = pygame.Color("#14195a")
+light_blue = pygame.Color("#0dd3f3")
+light_pink = pygame.Color("#f02e9b")
+reddish = pygame.Color("#cc1e3d")
 
 active = False
 
@@ -32,6 +36,10 @@ screen.fill(deep_blue)
 pygame.display.set_caption("Neon Run")
 
 #Carrega a imagem:
+
+bg2 = pygame.image.load('imgs/backgr2.png').convert()
+resized_bg2 = pygame.transform.scale(bg2, (1100, 600))
+
 bg = pygame.image.load('imgs/backgr1.jpg').convert()
 resized_bg = pygame.transform.scale(bg, (1100, 600))
 
@@ -46,10 +54,9 @@ class Player:
         self.vel_y = 18
         self.jump = False
         
-    
     #Desenha o boneco na janela desejada
     def draw(self, win):
-        self.player = pygame.draw.rect(win, pygame.Color("#14195a"), [self.x, self.y, 35, 90])
+        self.player = pygame.draw.rect(win, light_blue, [self.x, self.y, 35, 90])
 
     #fisica do pulo
     def player_jump(self, userInput):
@@ -69,7 +76,7 @@ class Obstacle0:
         self.vel_x = 5
     
     def draw_obstacle(self, win):
-        self.obstacle0 = pygame.draw.rect(win, pygame.Color("#14195a"), [self.x, self.y, 35, 35])
+        self.obstacle0 = pygame.draw.rect(win, reddish, [self.x, self.y, 35, 35])
     
     def move_obstacle(self):
             self.x -= self.vel_x
@@ -83,14 +90,12 @@ class Coin0:
         self.vel_x = 5
 
     def draw_coin(self, win, color):
-        self.coin0 = pygame.draw.rect(win, color, [self.x, self.y, 20, 20])
+        self.coin0 = pygame.draw.circle(win, color, [self.x, self.y], 12)
 
     def move_coin(self):
         self.x -= self.vel_x
         if self.x < -20:
             self.x = random.randint(1000, 1300)
-
-
 
                 
 #definindo coordenadas do personagem
@@ -108,11 +113,12 @@ while run:
 
     clock.tick(FPS)
     screen.fill(deep_blue)
-    screen.blit(resized_bg, (-40, 10))
+    screen.blit(resized_bg2, (-40, 10))
 
  
     userInput = pygame.key.get_pressed()
-    floor = pygame.draw.rect(screen, deep_blue, [0, 470, SCREEN_WIDTH, 10])
+    floor2 = pygame.draw.rect(screen, light_pink, [0, 470, SCREEN_WIDTH, 10])
+    floor = pygame.draw.rect(screen, deep_blue, [0, 480, SCREEN_WIDTH, 200])
 
     #Tela de start
     if not active:
