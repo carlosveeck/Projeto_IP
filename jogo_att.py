@@ -24,6 +24,12 @@ light_blue = pygame.Color("#0dd3f3")
 light_pink = pygame.Color("#f02e9b")
 reddish = pygame.Color("#cc1e3d")
 
+# cor transparente
+transparent = (0,0,0,0)
+
+# hit_box do player
+transparent_rect = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+
 active = False
 
 font = pygame.font.Font("visby-round-cf-heavy.otf", 16)
@@ -37,6 +43,9 @@ pygame.display.set_caption("Neon Run")
 
 #Carrega a imagem:
 
+bg3 = pygame.image.load('imgs/backgr3_8bit.png').convert()
+resized_bg3 = pygame.transform.scale(bg3, (1100, 600))
+
 bg2 = pygame.image.load('imgs/backgr2.png').convert()
 resized_bg2 = pygame.transform.scale(bg2, (1100, 600))
 
@@ -46,17 +55,46 @@ resized_bg = pygame.transform.scale(bg, (1100, 600))
 #colisão:
 collide = pygame.Rect.colliderect
 
-class Player:
+class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         #variáveis para o pulo
         self.x = x
         self.y = y
         self.vel_y = 18
         self.jump = False
-        
+
+        # codigo do sprite do player:
+        super().__init__()
+
+        self.sprites = []
+        self.sprites.append(pygame.image.load('imgs/frames_fred/fred_frame_1.png'))
+        self.sprites.append(pygame.image.load('imgs/frames_fred/fred_frame_2.png'))
+        self.sprites.append(pygame.image.load('imgs/frames_fred/fred_frame_3.png'))
+
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
+
+        self.width = self.image.get_rect().width
+        self.height = self.image.get_rect().height
+
+        self.image = pygame.transform.scale(self.image, (self.width*0.05, self.height*0.05))
+
+
+        self.rect = self.image.get_rect()
+
+
+    def update(self):
+        self.current_sprite += 0.15
+        self.current_sprite = self.current_sprite % len(self.sprites )
+        self.image = self.sprites[int(self.current_sprite)]
+        self.image = pygame.transform.scale(self.image, (self.width*0.05, self.height*0.05))
+
+
     #Desenha o boneco na janela desejada
     def draw(self, win):
-        self.player = pygame.draw.rect(win, light_blue, [self.x, self.y, 35, 90])
+        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x, self.y, 35, 90])   # hit_box do player é um quadrado invisivel
+        self.rect.topleft = [self.x - 25,self.y + 17]     # posicao de fred
+
 
     #fisica do pulo
     def player_jump(self, userInput):
@@ -99,12 +137,17 @@ class Coin0:
 
                 
 #definindo coordenadas do personagem
-char = Player(x, y)
+
 obstacle = Obstacle0(600, 435)
 
 coin_yellow = Coin0(650, 300)
 coin_white = Coin0(600,250)
 coin_deepblue = Coin0(600,350)
+
+
+moving_sprites = pygame.sprite.Group()
+char = Player(x,y)
+moving_sprites.add(char)
 
 
 #Permite que a janela fique aberta:
@@ -113,7 +156,7 @@ while run:
 
     clock.tick(FPS)
     screen.fill(deep_blue)
-    screen.blit(resized_bg2, (-40, 10))
+    screen.blit(resized_bg3, (-40, 10))
 
  
     userInput = pygame.key.get_pressed()
@@ -125,6 +168,8 @@ while run:
         instruction_text = font.render(f"Pressione espaço para começar", True, pygame.Color("#FFFFFF"))
         screen.blit(instruction_text, (380, 390))
     
+    moving_sprites.draw(screen)
+    moving_sprites.update()
     #desenha personagem da tela:
     char.draw(screen)
     
