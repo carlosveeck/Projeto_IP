@@ -5,7 +5,7 @@ import random
 
 pygame.init()
 
-#Variaveis/Constantes definidas:
+# Variaveis/Constantes definidas:
 
 clock = pygame.time.Clock()
 FPS = 60
@@ -19,15 +19,23 @@ vel_y = 18
 
 jump = False
 
+# Cores
+
 deep_blue = pygame.Color("#14195a")
 light_blue = pygame.Color("#0dd3f3")
 light_pink = pygame.Color("#f02e9b")
 reddish = pygame.Color("#cc1e3d")
+deep_purple = (120, 30, 155)
+yellowish = pygame.Color("#ff9656")
 
-# cor transparente
+white = (255, 255, 255)
+
+# Opacidade 0%
+
 transparent = (0,0,0,0)
 
-# hit_box do player
+# Hit-box do Player
+
 transparent_rect = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
 
 active = False
@@ -52,18 +60,28 @@ resized_bg2 = pygame.transform.scale(bg2, (1100, 600))
 bg = pygame.image.load('imgs/backgr1.jpg').convert()
 resized_bg = pygame.transform.scale(bg, (1100, 600))
 
-#colisão:
+floor_pic = pygame.image.load('imgs/floor1.png')
+resized_floor = pygame.transform.scale(floor_pic, (1100, 600))
+
+logo = pygame.image.load('imgs/logo_v2.png')
+
+#Colisão:
+
 collide = pygame.Rect.colliderect
 
 class Player(pygame.sprite.Sprite):
+
     def __init__(self, x, y):
-        #variáveis para o pulo
+
+        # Variáveis para o pulo
+
         self.x = x
         self.y = y
-        self.vel_y = 18
+        self.vel_y = 17
         self.jump = False
 
-        # codigo do sprite do player:
+        # Codigo do sprite do player:
+
         super().__init__()
 
         self.sprites = []
@@ -77,135 +95,199 @@ class Player(pygame.sprite.Sprite):
         self.width = self.image.get_rect().width
         self.height = self.image.get_rect().height
 
-        self.image = pygame.transform.scale(self.image, (self.width*0.05, self.height*0.05))
-
+        self.image = pygame.transform.scale(self.image, (300, 300))
 
         self.rect = self.image.get_rect()
 
-
     def update(self):
+
         self.current_sprite += 0.15
-        self.current_sprite = self.current_sprite % len(self.sprites )
+
+        self.current_sprite = self.current_sprite % len(self.sprites)
+
         self.image = self.sprites[int(self.current_sprite)]
-        self.image = pygame.transform.scale(self.image, (self.width*0.05, self.height*0.05))
 
+        self.image = pygame.transform.scale(self.image, (self.width*0.10, self.height*0.10))
 
-    #Desenha o boneco na janela desejada
+    # Desenha o boneco na janela desejada
+    
     def draw(self, win):
-        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x, self.y, 35, 90])   # hit_box do player é um quadrado invisivel
-        self.rect.topleft = [self.x - 25,self.y + 17]     # posicao de fred
+
+        # Hit_box do Player é um retângulo invisível
+
+        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x + 40, self.y - 10, 55, 100])
+
+        # Posicao de Fred
+
+        self.rect.topleft = [self.x - 25,self.y - 52]     
 
 
     #fisica do pulo
     def player_jump(self, userInput):
+
         if userInput[pygame.K_SPACE] and self.jump is False:
+
             self.jump = True
+
         if self.jump:
+
             self.y -= self.vel_y
+
             self.vel_y -= 1
-            if self.vel_y < -18:
+
+            if self.vel_y < -17:
+
                 self.jump = False
-                self.vel_y = 18
+
+                self.vel_y = 17
 
 class Obstacle0:
+
     def __init__(self, x, y):
+
+        self.obstacles = [900,1300,1700]
+
         self.x = x
+
         self.y = y
-        self.vel_x = 5
+
+        self.vel_x = 8
     
     def draw_obstacle(self, win):
-        self.obstacle0 = pygame.draw.rect(win, reddish, [self.x, self.y, 35, 35])
-    
-    def move_obstacle(self):
-            self.x -= self.vel_x
-            if self.x < -20:
-                self.x = random.randint(1000, 1300)
 
-class Coin0:
-    def __init__(self, x, y):
+        self.obstacle0 = pygame.draw.rect(screen, reddish, [self.obstacles[0], 420, 40, 50])
+        self.obstacle1 = pygame.draw.rect(screen, deep_purple, [self.obstacles[1], 440, 35, 30])
+        self.obstacle2 = pygame.draw.rect(screen, yellowish, [self.obstacles[2], 420, 45, 50])
+
+    def move_obstacle(self):
+            
+        for obstacle in range (len(self.obstacles)):
+
+            self.obstacles[obstacle] -= self.vel_x
+
+            if self.obstacles[obstacle] < -20:
+
+                self.obstacles[obstacle] = random.randint(1000, 1300)
+
+class Coin0(pygame.sprite.Sprite):
+
+    def __init__(self, x, y, specified_coin):
+            
+        if specified_coin == "img_coin1":
+
+            self.image = pygame.image.load("imgs/coin_base.png")
+
+        if specified_coin == "img_coin2":
+
+            self.image = pygame.image.load("imgs/coin_2.png")
+        
+        if specified_coin == "img_coin3":
+
+            self.image = pygame.image.load("imgs/coin_3.png")
+
+        self.image = pygame.transform.scale(self.image, (225, 225))
+
         self.x = x
+
         self.y = y
-        self.vel_x = 5
+
+        self.vel_x = 4
 
     def draw_coin(self, win, color):
+
+        screen.blit(self.image, (self.x -100, self.y - 100))
+
         self.coin0 = pygame.draw.circle(win, color, [self.x, self.y], 15)
 
     def move_coin(self):
-        self.x -= self.vel_x
-        if self.x < -20:
-            self.x = random.randint(1000, 1300)
 
-                
-#definindo coordenadas do personagem
+        self.x -= self.vel_x
+
+        if self.x < -20:
+
+            self.x = random.randint(1000, 1300)
+   
+# Definindo coordenadas do personagem
 
 obstacle = Obstacle0(600, 435)
 
-coin_yellow = Coin0(650, 300)
-coin_white = Coin0(600,250)
-coin_deepblue = Coin0(600,350)
-
+coin_yellow = Coin0(550, 275, "img_coin1")
+coin_white = Coin0(700,300, "img_coin2")
+coin_deepblue = Coin0(600,350, "img_coin3")
 
 moving_sprites = pygame.sprite.Group()
 char = Player(x,y)
 moving_sprites.add(char)
 
-
 #Permite que a janela fique aberta:
+
 run = True
+
 while run:
 
     clock.tick(FPS)
     screen.fill(deep_blue)
     screen.blit(resized_bg3, (-40, 10))
-
+    screen.blit(resized_floor, (0, 0))
  
     userInput = pygame.key.get_pressed()
-    floor2 = pygame.draw.rect(screen, light_pink, [0, 470, SCREEN_WIDTH, 10])
-    floor = pygame.draw.rect(screen, deep_blue, [0, 480, SCREEN_WIDTH, 200])
 
-    #Tela de start
+    # Tela de start
+
     if not active:
-        instruction_text = font.render(f"Pressione espaço para começar", True, pygame.Color("#FFFFFF"))
+
+        instruction_text = font.render(f"Pressione espaço para começar", True, white)
         screen.blit(instruction_text, (380, 390))
+
+        screen.blit(logo, (380, -40))
     
     moving_sprites.draw(screen)
     moving_sprites.update()
-    #desenha personagem da tela:
+    # Desenha personagem da tela:
     char.draw(screen)
     
-    #define o pulo do personagem
+    # Define o pulo do personagem
     char.player_jump(userInput)
 
-    #desenha obstáculo na tela
+    # Desenha obstáculo na tela
     obstacle.draw_obstacle(screen)
 
-    #define movimentação dos obstaculos
+    # Define movimentação dos obstaculos
     if active:
         obstacle.move_obstacle()
     if char.player.colliderect(obstacle.obstacle0):
         active = False
+    if char.player.colliderect(obstacle.obstacle1):
+        active = False
+    if char.player.colliderect(obstacle.obstacle2):
+        active = False
 
-    #desenha coin na tela:
-    coin_yellow.draw_coin(screen, pygame.Color("#FFFF00"))
-    coin_white.draw_coin(screen, pygame.Color("#FFFFFF"))
-    coin_deepblue.draw_coin(screen, pygame.Color("#14195a"))
+    # Desenha coin na tela:
 
-    #define movimentação da coin:
+    coin_yellow.draw_coin(transparent_rect, (0,0,0,0))
+    coin_white.draw_coin(transparent_rect, (0,0,0,0))
+    coin_deepblue.draw_coin(transparent_rect, (0,0,0,0))
+
+    # Define movimentação da coin:
+
     if active:
         coin_yellow.move_coin()
         coin_deepblue.move_coin()
         coin_white.move_coin()
+
     if char.player.colliderect(coin_yellow.coin0):
         newx = random.randint(1000, 1300)
-        coin_yellow = Coin0(newx, 300)
+        coin_yellow = Coin0(newx, 300, "img_coin1")
         points += 100
+
     if char.player.colliderect(coin_white.coin0):
         newx = random.randint(900, 1100)
-        coin_white = Coin0(newx, 250)
+        coin_white = Coin0(newx, 250, "img_coin2")
         points += 150
+
     if char.player.colliderect(coin_deepblue.coin0):
         newx = random.randint(800, 1200)
-        coin_deepblue = Coin0(newx, 350)
+        coin_deepblue = Coin0(newx, 350, "img_coin3")
         points += 200
     
     score_text = font.render(f"Score: {points}", True, pygame.Color("#FFFFFF"))
@@ -213,20 +295,19 @@ while run:
 
 
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             run = False
 
         if event.type == pygame.KEYDOWN and not active:
+
             if event.key == pygame.K_SPACE:
                 obstacle = Obstacle0(600, 435)
                 points = 0
                 active = True
 
-
         if event.type == pygame.KEYDOWN and active:
             userInput = pygame.key.get_pressed()
-
-
 
     pygame.display.update()
 pygame.quit() 

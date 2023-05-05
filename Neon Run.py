@@ -5,8 +5,6 @@ import pygame
 import os
 
 
-    self.coin0 = pygame.draw.circle(win, pygame.Color("#FFFF00"), [self.x, self.y, 20, 20])
-
 pygame.init()
 
 # COLORS CODES
@@ -42,7 +40,7 @@ y_change = 0
 gravity = 1
 
 obstacles = [600, 900, 1200]
-obstacle_speed = 5 
+obstacle_speed = 10 
 
 active = False
 
