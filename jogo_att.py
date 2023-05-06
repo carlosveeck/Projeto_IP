@@ -19,6 +19,12 @@ vel_y = 18
 
 jump = False
 
+High_score = 0
+
+floor_position = 0
+
+can_jump = False
+
 # Cores
 
 deep_blue = pygame.Color("#14195a")
@@ -107,7 +113,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = self.sprites[int(self.current_sprite)]
 
-        self.image = pygame.transform.scale(self.image, (self.width*0.10, self.height*0.10))
+        self.image = pygame.transform.scale(self.image, (self.width*0.075, self.height*0.075))
 
     # Desenha o boneco na janela desejada
     
@@ -115,11 +121,11 @@ class Player(pygame.sprite.Sprite):
 
         # Hit_box do Player é um retângulo invisível
 
-        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x + 40, self.y - 10, 55, 100])
+        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x + 40, self.y, 55, 90])
 
         # Posicao de Fred
 
-        self.rect.topleft = [self.x - 25,self.y - 52]     
+        self.rect.topleft = [self.x,self.y - 18]     
 
 
     #fisica do pulo
@@ -228,7 +234,12 @@ while run:
     clock.tick(FPS)
     screen.fill(deep_blue)
     screen.blit(resized_bg3, (-40, 10))
-    screen.blit(resized_floor, (0, 0))
+
+    # chão
+    screen.blit(resized_floor, (floor_position, 0))
+
+    # chão duplicado para ser infinito
+    screen.blit(resized_floor, (floor_position + 1100, 0))
  
     userInput = pygame.key.get_pressed()
 
@@ -240,7 +251,13 @@ while run:
         screen.blit(instruction_text, (380, 390))
 
         screen.blit(logo, (380, -40))
+
+        if points > High_score:
+            High_score = points
     
+    High_score_text = font.render(f"Recorde atual: {High_score}", True, white)
+    screen.blit(High_score_text, (0, 0))
+
     moving_sprites.draw(screen)
     moving_sprites.update()
     # Desenha personagem da tela:
@@ -274,6 +291,11 @@ while run:
         coin_yellow.move_coin()
         coin_deepblue.move_coin()
         coin_white.move_coin()
+
+        floor_position -= 8
+
+        if floor_position < -1100:
+            floor_position = 0
 
     if char.player.colliderect(coin_yellow.coin0):
         newx = random.randint(1000, 1300)
