@@ -1,1 +1,1 @@
-1
+abs(random_number - self.obstacles[obstacle - 1]) > 20 and abs(random_number - self.obstacles[obstacle - 1]) < 800
