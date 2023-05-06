@@ -4,6 +4,8 @@ import os
 import random
 
 pygame.init()
+pygame.mixer.music.load('musicalucs.wav')
+pygame.mixer.music.play(loops=-1, start=0.0)
 
 # Variaveis/Constantes definidas:
 
