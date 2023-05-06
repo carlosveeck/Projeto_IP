@@ -4,6 +4,8 @@ import os
 import random
 
 pygame.init()
+pygame.mixer.music.load('musicalucs.wav')
+pygame.mixer.music.play(loops=-1, start=0.0)
 
 # Variaveis/Constantes definidas:
 
@@ -217,9 +219,9 @@ class Coin0(pygame.sprite.Sprite):
 
 obstacle = Obstacle0(600, 435)
 
-coin_yellow = Coin0(550, 275, "img_coin1")
-coin_white = Coin0(700,300, "img_coin2")
-coin_deepblue = Coin0(600,350, "img_coin3")
+coin_yellow = Coin0(1200, 250, "img_coin1")
+coin_white = Coin0(1100,330, "img_coin2")
+coin_deepblue = Coin0(1300, 425, "img_coin3")
 
 moving_sprites = pygame.sprite.Group()
 char = Player(x,y)
@@ -247,7 +249,7 @@ while run:
 
     if not active:
 
-        instruction_text = font.render(f"Pressione espaço para começar", True, white)
+        instruction_text = font.render(f"Pressione ENTER para começar", True, white)
         screen.blit(instruction_text, (380, 390))
 
         screen.blit(logo, (380, -40))
@@ -298,18 +300,18 @@ while run:
             floor_position = 0
 
     if char.player.colliderect(coin_yellow.coin0):
-        newx = random.randint(1000, 1300)
-        coin_yellow = Coin0(newx, 300, "img_coin1")
+        newx = random.randint(1300, 1500)
+        coin_yellow = Coin0(newx, 250, "img_coin1")
         points += 100
 
     if char.player.colliderect(coin_white.coin0):
-        newx = random.randint(900, 1100)
-        coin_white = Coin0(newx, 250, "img_coin2")
+        newx = random.randint(1000, 1200)
+        coin_white = Coin0(newx, 330, "img_coin2")
         points += 150
 
     if char.player.colliderect(coin_deepblue.coin0):
-        newx = random.randint(800, 1200)
-        coin_deepblue = Coin0(newx, 350, "img_coin3")
+        newx = random.randint(1200, 1400)
+        coin_deepblue = Coin0(newx, 425, "img_coin3")
         points += 200
     
     score_text = font.render(f"Score: {points}", True, pygame.Color("#FFFFFF"))
@@ -323,7 +325,7 @@ while run:
 
         if event.type == pygame.KEYDOWN and not active:
 
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_RETURN:
                 obstacle = Obstacle0(600, 435)
                 points = 0
                 active = True
