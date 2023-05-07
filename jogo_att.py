@@ -123,7 +123,7 @@ class Player(pygame.sprite.Sprite):
 
         # Hit_box do Player é um retângulo invisível
 
-        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x + 40, self.y, 55, 90])
+        self.player = pygame.draw.rect(transparent_rect, light_blue, [self.x + 58, self.y + 10, 20, 70])
 
         # Posicao de Fred
 
@@ -175,7 +175,14 @@ class Obstacle0:
 
             if self.obstacles[obstacle] < -20:
 
-                self.obstacles[obstacle] = random.randint(1000, 1300)
+                random_number = random.randint(800, 1200)
+                while (abs(random_number - self.obstacles[obstacle - 1]) > 140 and abs(random_number - self.obstacles[obstacle - 1]) < 300 or abs(random_number - self.obstacles[obstacle - 1]) < 110):
+                    random_number = random.randint(800, 1200)
+                    print('A')
+
+                self.obstacles[obstacle] = abs(random_number)
+                distance = self.obstacles[obstacle] - self.obstacles[obstacle - 1]
+                print(distance)
 
 class Coin0(pygame.sprite.Sprite):
 
@@ -256,7 +263,7 @@ while run:
 
         if points > High_score:
             High_score = points
-    
+
     High_score_text = font.render(f"Recorde atual: {High_score}", True, white)
     screen.blit(High_score_text, (0, 0))
 
@@ -266,7 +273,8 @@ while run:
     char.draw(screen)
     
     # Define o pulo do personagem
-    char.player_jump(userInput)
+    if active:
+        char.player_jump(userInput)
 
     # Desenha obstáculo na tela
     obstacle.draw_obstacle(screen)
@@ -313,7 +321,7 @@ while run:
         newx = random.randint(1200, 1400)
         coin_deepblue = Coin0(newx, 425, "img_coin3")
         points += 200
-    
+
     score_text = font.render(f"Score: {points}", True, pygame.Color("#FFFFFF"))
     screen.blit(score_text, (480, 520))
 
