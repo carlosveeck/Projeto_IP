@@ -200,7 +200,7 @@ class Coin0(pygame.sprite.Sprite):
 
             self.image = pygame.image.load("imgs/def2_coin3.png")
 
-        self.image = pygame.transform.scale(self.image, (225, 225))
+        self.image = pygame.transform.scale(self.image, (275, 275))
 
         self.x = x
 
@@ -210,7 +210,7 @@ class Coin0(pygame.sprite.Sprite):
 
     def draw_coin(self, win, color):
 
-        screen.blit(self.image, (self.x -100, self.y - 100))
+        screen.blit(self.image, (self.x -150, self.y - 150))
 
         self.coin0 = pygame.draw.circle(win, color, [self.x, self.y], 15)
 
