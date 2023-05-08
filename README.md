@@ -1,3 +1,4 @@
+Relatório: 
 # Neon Run
 Neon Run é um jogo runner 2D desenvolvido usando Pygame. Inspirado no jogo mobile geometry dash, utilizamos bastante da estética Synthwave principalmente no cenário e na soundtrack. O jogador controla os pulos de Fred, que nunca para de correr, e tem como objetivo coletar moedas para fazer o máximo de pontos possíveis enquanto desvia de obstáculos.
 
@@ -10,37 +11,33 @@ Neon Run é um jogo runner 2D desenvolvido usando Pygame. Inspirado no jogo mobi
 - Vinicius Seabra Lago Lima 
 
 # Divisão de tarefas:
-Áriston: Design do jogo, criação inicial do jogo e coordenação geral do grupo
-Carlos: Organização do jogo em POO e foco/auxílio do GIT
-Lucas: Produção Musical e backend
-Claudino: Organização do relatório e acontecimentos cronológicos do projeto
-Rodrigo: Descrição de eventos e suporte na programação do código 
-Vinicius: Criação dos objetos colecionáveis e colisões 
+| Integrantes | Tarefas (principais) |
+| --- | --- |
+| Áriston | Design do jogo, criação inicial do jogo e coordenação geral do grupo  |
+| Carlos | Organização do jogo em POO e foco/auxílio do GIT  |
+| Organização do relatório e acontecimentos cronológicos do projeto | Utilizamos essa biblioteca para gerar valores aleatórios  |
+| Lucas | Produção Musical e backend  |
+| Rodrigo |  Descrição de eventos, relatório e suporte na programação do código  |
+| Vinicius | Criação dos objetos colecionáveis e colisões  |
+
 
 # Conceitos e Aplicação:
-lista → obstaculos
-loop → código todo, iterar na lista de obstaculos
-funcao → organização do codigo
-classe → personagem, obstaculo, moedas
-metodos → dentro de cada classe, gerar objetos visuas
-tuplas → sao muito usadas no pygame pela propria syntaxe
-condicional → dentro de tudo usamos condicionais
+Utilizamos conceitos aprendidos durante todo o semestre no desenvolvimento de nosso projeto. A começar por praticamente todo o nosso código está dentro de um laço de repetição, um “while”. Além disso, também temos estruturas de repetição para inteirar sobre listas, que por sua vez têm sua importância pois são utilizadas para os obstáculos. Para organizar o código, o grupo utilizou de funções, pois dessa forma o código fica mais enxuto. Surpreendendo o grupo, as tuplas estão demasiadamente presentes no código pois é natural que se use bastante no Pygame devido a sintaxe da própria biblioteca como para criar objetos 2D a partir de matrizes ou para definir cores. Por fim, o conceito mais recente e bastante importante para o projeto é o de classes. Usamos as classes para criarmos o personagem, os obstáculos e as moedas, e com eles usamos os métodos para definir suas características. Uma mencão honrosa as estruturas condicionais que estão presentes basicamente em toda parte do jogo.
 
 
 # Organização do código:
 | Arquivos | Aplicação |
 | --- | --- |
-| jogo_att.py | Utilizamos essa biblioteca para gerar valores aleatórios  |
-| imgs | Utilizamos essa biblioteca para gerar valores aleatórios  |
-| musicalucs.wav | Utilizamos essa biblioteca para gerar valores aleatórios  |
-| video | Utilizamos essa biblioteca para gerar valores aleatórios  |
+| jogo_att.py | É o principal arquivo do projeto, e é basicamente nele em que o codigo está escrito.  |
+| imgs | É o arquivo que contém todas as imagens usadas no jogo como cenário e sprites  |
+| musicalucs.wav | É nela que está a alma do jogo: nossa soundtrack  |
 
 
 # Bibliotecas e Ferramentas;
 |  | Aplicação |
 | --- | --- |
-| Pygame |  |
-| Random | Utilizamos essa biblioteca para gerar valores aleatórios  |
+| Pygame | Sem dúvidas a principal biblioteca do nosso projeto, tem como objetivo ajudar no desenvolvimento de games e interfaces gráficas, pois o fornece acesso a áudios, teclados, controles, mouses e hardwares gráficos |
+| Random | Utilizamos essa biblioteca para gerar valores aleatórios como na geração de novos obstáculos que vão surgindo aleatoriamente com o decorrer do jogo |
 
 
 # Plataformas de apoio:
