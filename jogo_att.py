@@ -385,7 +385,7 @@ while run:
     if char.player.colliderect(coin_yellow.coin0):
         newx = random.randint(1300, 1500)
         coin_yellow = Coin0(newx, 250, "img_coin1")
-        points += 100
+        points += 1000
         speed_increase += 100
 
     if char.player.colliderect(coin_white.coin0):
@@ -397,7 +397,7 @@ while run:
     if char.player.colliderect(coin_deepblue.coin0):
         newx = random.randint(1200, 1400)
         coin_deepblue = Coin0(newx, 425, "img_coin3")
-        points += 1000
+        points += 100
         speed_increase += 1000
 
 
