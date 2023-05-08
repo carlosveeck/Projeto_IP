@@ -20,7 +20,7 @@ x = 50
 y = 380
 vel_y = 18
 
-game_speed = 10
+game_speed = 9
 speed_increase = 0
 
 jump = False
@@ -192,12 +192,12 @@ class Obstacle0:
 
             if self.obstacles[obstacle] < -20:
 
-                random_number = random.randint(1000 + (game_speed*(2**(game_speed-10))), 1300 + (game_speed*(2**(game_speed-10))))
+                random_number = random.randint(1000 + (game_speed*(2**(game_speed-9))), 1300 + (game_speed*(2**(game_speed-9))))
 
                 while ((abs(random_number - self.obstacles[obstacle - 1]) > 140 and abs(random_number - self.obstacles[obstacle - 1]) < 300 or abs(random_number - self.obstacles[obstacle - 1]) < 110) or
                        (abs(random_number - self.obstacles[obstacle - 2]) > 140 and abs(random_number - self.obstacles[obstacle - 2]) < 300 or abs(random_number - self.obstacles[obstacle - 2]) < 110)):
 
-                    random_number = random.randint(1000 + (game_speed*(2**(game_speed-10))), 1300 + (game_speed*(2**(game_speed-10))))
+                    random_number = random.randint(1000 + (game_speed*(2**(game_speed-9))), 1300 + (game_speed*(2**(game_speed-9))))
 
                 self.obstacles[obstacle] = abs(random_number)
 
@@ -391,14 +391,14 @@ while run:
     if char.player.colliderect(coin_white.coin0):
         newx = random.randint(1000, 1200)
         coin_white = Coin0(newx, 330, "img_coin2")
-        points += 150
-        speed_increase += 150
+        points += 500
+        speed_increase += 500
 
     if char.player.colliderect(coin_deepblue.coin0):
         newx = random.randint(1200, 1400)
         coin_deepblue = Coin0(newx, 425, "img_coin3")
-        points += 200
-        speed_increase += 200
+        points += 1000
+        speed_increase += 1000
 
 
     score_text = font.render(f"Score: {points}", True, pygame.Color("#FFFFFF"))
@@ -406,8 +406,8 @@ while run:
 
 
     # dificultar o jogo de acordo com a pontuação atual do player
-    if speed_increase >= 1000:
-        speed_increase -= 1000
+    if speed_increase >= 3200:
+        speed_increase -= 3200
         game_speed += 1
         obstacle.vel_x += 1
 
