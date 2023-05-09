@@ -58,8 +58,19 @@ Porém, como já era esperado, também cometemos erros. No início não constru�
 
 Com isso, para um grupo que gosta de desafios como o nosso, foi uma experiência muito proveitosa e saber fazer a junção das experiências e habilidades de cada um sem dúvidas foi o nosso diferencial, fazendo com que todos crescessem individualmente e como grupo.
 
-pygame
-Random: Obstáculo e Moedas
-
 
 # Galeria:
+![This is an image](https://github.com/carlosveeck/Projeto_IP/blob/main/imgs/imgrodi1.png)
+#### Tela inicial
+--------------------
+
+
+
+![This is an image](https://github.com/carlosveeck/Projeto_IP/blob/main/imgs/imgrodi2.png)
+#### Captura de jogo em andamento
+--------------------
+
+
+
+![This is an image](https://github.com/carlosveeck/Projeto_IP/blob/main/imgs/imgrodi3.png)
+#### Tela de quando se perde
